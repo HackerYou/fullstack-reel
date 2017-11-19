@@ -16,6 +16,16 @@ movies.getMovies = (req, res) => {
     });
 };
 
+movies.getMovieById = (req, res) => {
+    const movieId = req.params.id;
+    Movie.findById(movieId)
+        .then(doc => {
+            res
+                .status(200)
+                .send(doc);
+        });
+}
+
 // POST
 movies.postMovie = (req, res) => {
     const movieModel = new Movie();

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactFilestack from 'filestack-react';
+import { Link, Route } from 'react-router-dom';
 
 class Movie extends React.Component {
     constructor() {
@@ -56,70 +57,74 @@ class Movie extends React.Component {
         this.setState(newState);
     }
     render() {
+        console.log(this.props);
         return (
-            <div className="movie" style={{backgroundImage: `url(${this.props.posterUrl})`}}>
-                {this.state.editing ?
-                    <div className="movie-editing">
-                        <fieldset>
-                            <label htmlFor="title">Title: </label>
-                            <input 
-                                onChange={this.handleChange}
-                                type="text"
-                                id="title"
-                                name="title"
-                                value={this.state.title} 
-                            />
-                        </fieldset>
-                        <fieldset>
-                            <label htmlFor="title">Year: </label>                        
-                            <input 
-                                onChange={this.handleChange}
-                                type="text"
-                                id="year"
-                                name="year"
-                                value={this.state.year} 
-                            />
-                        </fieldset>
-                        <fieldset>
-                            <label htmlFor="poster">Poster: </label>                                                
-                            <ReactFilestack
-                                apikey={"AwT9gpp4PQvqDYZ9Vm6Voz"}
-                                buttonText="Upload Photo"
-                                buttonClass="classname"
-                                onSuccess={this.onUploadSuccess}
-                            />
-                        </fieldset>
-                        <fieldset>
-                            <label htmlFor="poster">Director: </label>                                                                      
-                            <input 
-                                onChange={this.handleChange}
-                                type="text"
-                                id="director"
-                                name="director"
-                                value={this.state.director}
-                            />
-                        </fieldset>
-                        <fieldset>
-                            <label htmlFor="poster">Plot: </label>                                                                                              
-                            <textarea 
-                                onChange={this.handleChange}
-                                name="plot"
-                                id="plot"
-                                value={this.props.plot}
-                            />  
-                        </fieldset>                    
-                        <button onClick={() => this.saveMovie(this.props._id)}>Save Changes</button>
-                    </div>
-                :
-                    <div className="movie-summary">
-                        <button className="movie-delete" onClick={() => this.deleteMovie(this.props._id)}>x</button>                                
-                        <button className="movie-edit" onClick={this.editToggle}>Edit</button>                            
-                        <h2>{this.props.title} ({this.props.year})</h2>
-                        <p>Director: {this.props.director}</p>
-                        <p>Plot: {this.props.plot}</p>
-                    </div>
-                }
-            </div>
+                <div className="movie" style={{backgroundImage: `url(${this.props.posterUrl})`}}>
+                    <Link to={`${this.props.match.url}${this.props._id}`}>
+                    {this.state.editing ?
+                        <div className="movie-editing">
+                            <fieldset>
+                                <label htmlFor="title">Title: </label>
+                                <input 
+                                    onChange={this.handleChange}
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    value={this.state.title} 
+                                />
+                            </fieldset>
+                            <fieldset>
+                                <label htmlFor="title">Year: </label>                        
+                                <input 
+                                    onChange={this.handleChange}
+                                    type="text"
+                                    id="year"
+                                    name="year"
+                                    value={this.state.year} 
+                                />
+                            </fieldset>
+                            <fieldset>
+                                <label htmlFor="poster">Poster: </label>                                                
+                                <ReactFilestack
+                                    apikey={"AwT9gpp4PQvqDYZ9Vm6Voz"}
+                                    buttonText="Upload Photo"
+                                    buttonClass="classname"
+                                    onSuccess={this.onUploadSuccess}
+                                />
+                            </fieldset>
+                            <fieldset>
+                                <label htmlFor="poster">Director: </label>                                                                      
+                                <input 
+                                    onChange={this.handleChange}
+                                    type="text"
+                                    id="director"
+                                    name="director"
+                                    value={this.state.director}
+                                />
+                            </fieldset>
+                            <fieldset>
+                                <label htmlFor="poster">Plot: </label>                                                                                              
+                                <textarea 
+                                    onChange={this.handleChange}
+                                    name="plot"
+                                    id="plot"
+                                    value={this.props.plot}
+                                />  
+                            </fieldset>                    
+                            <button onClick={() => this.saveMovie(this.props._id)}>Save Changes</button>
+                        </div>
+                    :
+                        <div className="movie-summary">
+
+                            <button className="movie-delete" onClick={() => this.deleteMovie(this.props._id)}>x</button>                                
+                            <button className="movie-edit" onClick={this.editToggle}>Edit</button>                            
+                            <h2>{this.props.title} ({this.props.year})</h2>
+                            <p>Director: {this.props.director}</p>
+                            <p>Plot: {this.props.plot}</p>
+                        </div>
+                    }
+                    </Link>
+                </div>
         );
     }
 }

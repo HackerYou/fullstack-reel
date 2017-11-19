@@ -19,6 +19,7 @@ app.use(express.static('assets'));
 
 // Include your own logic here (so it has precedence over the wildcard
 // route below)
+app.get('/api/movies/:id', movies.getMovieById);
 app.get('/api/movies', movies.getMovies);
 app.post('/api/movies', movies.postMovie);
 app.delete('/api/movies/:id', movies.deleteMovie);
